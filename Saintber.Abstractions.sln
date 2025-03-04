@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F1C0242D-F712-41ED-BB96-16DFE4934046}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saintber.Abstractions", "src\Saintber.Abstractions\Saintber.Abstractions.csproj", "{AA0E6092-3FBA-4C37-82A4-52FCA84F93B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A112ABC1-8E6B-4BA1-856F-F11ABFC1ACEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saintber.Abstractions.Tests", "test\Saintber.Abstractions.Tests\Saintber.Abstractions.Tests.csproj", "{8A36DE89-EC86-493D-AF2A-9FE86D1E59DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saintber.Abstractions.UnitTests", "test\Saintber.Abstractions.UnitTests\Saintber.Abstractions.UnitTests.csproj", "{EE17A3D8-12B3-4F70-9675-B8AD6F7C19FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "方案項目", "方案項目", "{F951305C-C041-4124-A983-CE3D00CBB0E1}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		nuget.config = nuget.config
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA0E6092-3FBA-4C37-82A4-52FCA84F93B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA0E6092-3FBA-4C37-82A4-52FCA84F93B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA0E6092-3FBA-4C37-82A4-52FCA84F93B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA0E6092-3FBA-4C37-82A4-52FCA84F93B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A36DE89-EC86-493D-AF2A-9FE86D1E59DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A36DE89-EC86-493D-AF2A-9FE86D1E59DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A36DE89-EC86-493D-AF2A-9FE86D1E59DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A36DE89-EC86-493D-AF2A-9FE86D1E59DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE17A3D8-12B3-4F70-9675-B8AD6F7C19FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE17A3D8-12B3-4F70-9675-B8AD6F7C19FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE17A3D8-12B3-4F70-9675-B8AD6F7C19FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE17A3D8-12B3-4F70-9675-B8AD6F7C19FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AA0E6092-3FBA-4C37-82A4-52FCA84F93B0} = {F1C0242D-F712-41ED-BB96-16DFE4934046}
+		{8A36DE89-EC86-493D-AF2A-9FE86D1E59DD} = {A112ABC1-8E6B-4BA1-856F-F11ABFC1ACEA}
+		{EE17A3D8-12B3-4F70-9675-B8AD6F7C19FD} = {A112ABC1-8E6B-4BA1-856F-F11ABFC1ACEA}
+	EndGlobalSection
+EndGlobal

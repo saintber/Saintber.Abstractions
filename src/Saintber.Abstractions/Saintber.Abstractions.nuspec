@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Saintber.Abstractions</id>
+    <version>1.0.0</version>
+    <authors>Saintber</authors>
+    <owners>Saintber</owners>
+    <description>Saintber's Abstractions.</description>
+	<readme>README.md</readme>
+	<license type="expression">MIT</license>
+	<repository type="git" url="https://" />
+    <dependencies>
+      <!--<group targetFramework=".NETFramework4.6.2">
+      </group>
+      <group targetFramework=".NETFramework4.7.1">
+      </group>-->
+      <group targetFramework=".NET6.0">
+      </group>
+      <group targetFramework=".NET8.0">
+      </group>
+      <group targetFramework=".NET9.0">
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\**\Saintber.Abstractions.dll" target="lib" />
+    <file src="bin\Release\**\Saintber.Abstractions.xml" target="lib" />
+    <file src="README.md" target="" />
+  </files>
+</package>
