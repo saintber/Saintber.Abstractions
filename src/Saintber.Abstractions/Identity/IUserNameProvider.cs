@@ -3,7 +3,7 @@
     /// <summary>
     /// 提供取得目前使用者名稱的功能。
     /// </summary>
-    public interface IUserNameProvName : IUserNameProviderName<string>
+    public interface IUserNameProvider : IUserNameProvider<string>
     {
     }
 
@@ -11,7 +11,7 @@
     /// 提供取得目前使用者名稱的功能。
     /// </summary>
     /// <typeparam name="TKey">使用者名稱型別。</typeparam>
-    public interface IUserNameProviderName<TKey>
+    public interface IUserNameProvider<TKey>
     {
         /// <summary>
         /// 取得目前使用者的名稱。
