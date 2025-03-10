@@ -16,7 +16,8 @@
         /// <summary>
         /// 取得目前使用者的名稱。
         /// </summary>
+        /// <param name="cancellationToken">取消權杖。</param>
         /// <returns>目前使用者的名稱。</returns>
-        Task<TKey> GetUserNameAsync();
+        Task<TKey> GetUserNameAsync(CancellationToken cancellationToken = default);
     }
 }

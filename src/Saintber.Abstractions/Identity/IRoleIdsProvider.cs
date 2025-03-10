@@ -8,7 +8,8 @@
         /// <summary>
         /// 取得目前登入使用者的角色識別碼清單。
         /// </summary>
-        /// <returns></returns>
-        Task<IEnumerable<string>> GetRoleIdsAsync();
+        /// <param name="cancellationToken">取消權杖。</param>
+        /// <returns>目前登入使用者的角色識別碼清單。</returns>
+        Task<IEnumerable<string>> GetRoleIdsAsync(CancellationToken cancellationToken = default);
     }
 }
