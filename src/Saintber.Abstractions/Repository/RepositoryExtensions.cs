@@ -18,14 +18,13 @@
         /// <summary>
         /// 取得符合篩選條件的單筆資料。
         /// </summary>
-        /// <typeparam name="TKey">識別碼型別。</typeparam>
         /// <typeparam name="TModel">資料模型型別。</typeparam>
-        /// <typeparam name="TFilterModel">篩選資料模型型別。</typeparam>
+        /// <typeparam name="TFilter">篩選資料模型型別。</typeparam>
         /// <param name="repository">知識庫。</param>
         /// <param name="filter">篩選資料模型。</param>
         /// <param name="cancellationToken">取消權杖。</param>
         /// <returns>符合指定識別碼的資料。</returns>
-        public static async Task<TModel?> SingleOrDefaultAsync<TKey, TModel, TFilterModel>(this IGetRepository<TModel, TFilterModel> repository
+        public static async Task<TModel?> SingleOrDefaultAsync<TModel, TFilterModel>(this IGetRepository<TModel, TFilterModel> repository
             , TFilterModel filter, CancellationToken cancellationToken = default)
             => (await repository.GetAsync(filter, cancellationToken)).SingleOrDefault();
 
