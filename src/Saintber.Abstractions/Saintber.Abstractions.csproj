@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Saintber.Validation\src\Saintber.Validation\Saintber.Validation.csproj" />
+  </ItemGroup>
+
 </Project>
