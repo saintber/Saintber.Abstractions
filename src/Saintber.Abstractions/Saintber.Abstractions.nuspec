@@ -15,10 +15,13 @@
       <group targetFramework=".NETFramework4.7.1">
       </group>-->
       <group targetFramework=".NET6.0">
+        <dependency id="Saintber.Validation" version="1.0.0-rc01-alpha01" />
       </group>
       <group targetFramework=".NET8.0">
+        <dependency id="Saintber.Validation" version="1.0.0-rc01-alpha01" />
       </group>
       <group targetFramework=".NET9.0">
+        <dependency id="Saintber.Validation" version="1.0.0-rc01-alpha01" />
       </group>
     </dependencies>
   </metadata>

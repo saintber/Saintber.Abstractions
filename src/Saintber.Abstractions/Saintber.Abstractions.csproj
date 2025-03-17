@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Saintber.Validation\src\Saintber.Validation\Saintber.Validation.csproj" />
+    <PackageReference Include="Saintber.Validation" Version="1.0.0-rc01-alpha01" />
   </ItemGroup>
 
 </Project>
