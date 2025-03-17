@@ -1,60 +1,60 @@
 ﻿using Saintber.Abstractions.Repository;
+using Saintber.Validation;
 
 namespace Saintber.Abstractions.Service
 {
     /// <summary>
-    /// 刪除資訊管理員基底類別。
+    /// 定義刪除資訊的服務，負責根據請求刪除符合條件的資訊。
     /// </summary>
-    /// <typeparam name="TFilterModel">篩選資料模型型別。</typeparam>
-    /// <typeparam name="TDelete">刪除資訊型別。</typeparam>
-    public class DeleteService<TFilterModel, TDelete> : IDeleteService<TDelete>
-        where TFilterModel : new()
+    /// <typeparam name="TFilterDataModel">儲存層的刪除篩選條件數據模型型別。</typeparam>
+    /// <typeparam name="TDeleteRequest">應用層的刪除請求型別。</typeparam>
+    public class DeleteService<TFilterDataModel, TDeleteRequest> : IDeleteService<TDeleteRequest>
+        where TFilterDataModel : new()
     {
-        private readonly IDeleteServiceContext<TFilterModel, TDelete> managerContext;
-        private readonly IDeleteRepository<TFilterModel> repository;
+        private readonly IDeleteServiceContext<TFilterDataModel, TDeleteRequest> serviceContext;
+        private readonly IDeleteRepository<TFilterDataModel> repository;
 
         /// <summary>
-        /// 建立資訊刪除管理員的新執行個體。
+        /// 初始化刪除資訊服務的新執行個體。
         /// </summary>
-        /// <param name="managerContext">資訊刪除管理員內容。</param>
-        /// <param name="repository">資料刪除知識庫。</param>
-        /// <returns>資訊刪除管理員。</returns>
+        /// <param name="serviceContext">刪除資訊的管理內容。</param>
+        /// <param name="repository">刪除資料的儲存庫。</param>
         public DeleteService(
-            IDeleteServiceContext<TFilterModel, TDelete> managerContext
-            , IDeleteRepository<TFilterModel> repository)
+            IDeleteServiceContext<TFilterDataModel, TDeleteRequest> serviceContext
+            , IDeleteRepository<TFilterDataModel> repository)
         {
-            this.managerContext = managerContext;
+            this.serviceContext = serviceContext;
             this.repository = repository;
         }
 
-        public virtual async Task DeleteAsync(TDelete delete, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteAsync(TDeleteRequest delete, CancellationToken cancellationToken = default)
         {
             // 資料檢核
             if (delete == null) throw new ArgumentNullException(nameof(delete));
-            foreach (var validator in managerContext.DeleteValidators)
+            foreach (var validator in serviceContext.DeleteValidators ?? new List<ValidationHandler<TDeleteRequest>>())
             {
-                await validator.ValidateAsync(delete, cancellationToken).ConfigureAwait(false);
+                await validator.ValidateAndThrowAsync(delete, cancellationToken).ConfigureAwait(false);
             }
 
             // 前置處理
-            var deleteDataModel = await managerContext.BeforeDeleteAsync(delete, cancellationToken).ConfigureAwait(false);
+            var deleteDataModel = await serviceContext.OnCreatingAsync(delete, cancellationToken).ConfigureAwait(false);
 
             // 刪除資料
             await repository.DeleteAsync(deleteDataModel, cancellationToken).ConfigureAwait(false);
 
             // 後置處理
-            await managerContext.AfterDeleteAsync(cancellationToken).ConfigureAwait(false);
+            await serviceContext.OnCreatedAsync(cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// 建立資訊刪除管理員的新執行個體。
+        /// 建立新的刪除資訊服務實例。
         /// </summary>
-        /// <param name="managerContext">資訊刪除管理員內容。</param>
-        /// <param name="repository">資料刪除知識庫。</param>
-        /// <returns>資訊刪除管理員。</returns>
-        public static DeleteService<TFilterModel, TDelete> Create(
-            IDeleteServiceContext<TFilterModel, TDelete> managerContext
-            , IDeleteRepository<TFilterModel> repository)
-            => new DeleteService<TFilterModel, TDelete>(managerContext, repository);
+        /// <param name="serviceContext">刪除資訊的管理內容。</param>
+        /// <param name="repository">刪除資料的儲存庫。</param>
+        /// <returns>新的刪除資訊服務實例。</returns>
+        public static DeleteService<TFilterDataModel, TDeleteRequest> Create(
+            IDeleteServiceContext<TFilterDataModel, TDeleteRequest> serviceContext
+            , IDeleteRepository<TFilterDataModel> repository)
+            => new DeleteService<TFilterDataModel, TDeleteRequest>(serviceContext, repository);
     }
 }

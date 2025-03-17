@@ -38,11 +38,11 @@ namespace Saintber.Abstractions.Service
         /// <summary>
         /// 在更新前執行的處理程序，可用於修改更新請求或進行業務邏輯驗證。
         /// </summary>
-        Task<TUpdateDataModel> BeforeUpdateAsync(TUpdateRequest create, CancellationToken cancellationToken = default);
+        Func<TUpdateRequest, CancellationToken, Task<TUpdateDataModel>> OnCreatingAsync { get; set; }
 
         /// <summary>
         /// 在更新後執行的處理程序，可用於進一步處理已更新的數據，例如觸發事件或更新快取。
         /// </summary>
-        Task<TDto> AfterUpdateAsync(TDataModel dataModel, CancellationToken cancellationToken = default);
+        Func<TDataModel, CancellationToken, Task<TDto>> OnCreatedAsync { get; set; }
     }
 }

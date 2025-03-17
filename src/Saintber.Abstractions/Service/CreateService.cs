@@ -64,13 +64,13 @@ namespace Saintber.Abstractions.Service
             }
 
             // 前置處理
-            var createDataModel = await managerContext.BeforeCreateAsync(create, cancellationToken).ConfigureAwait(false);
+            var createDataModel = await managerContext.OnCreatingAsync(create, cancellationToken).ConfigureAwait(false);
 
             // 建立資料
             var dataModel = await repository.CreateAsync(createDataModel, cancellationToken).ConfigureAwait(false);
 
             // 後置處理
-            var dto = await managerContext.AfterCreateAsync(dataModel, cancellationToken).ConfigureAwait(false);
+            var dto = await managerContext.OnCreatedAsync(dataModel, cancellationToken).ConfigureAwait(false);
 
             return dto;
         }
