@@ -9,7 +9,7 @@ namespace Saintber.Abstractions.Service
     /// </summary>
     /// <typeparam name="TDataModel">儲存層使用的數據模型型別。</typeparam>
     /// <typeparam name="TFilterDataModel">儲存層使用的篩選條件數據模型型別。</typeparam>
-    /// <typeparam name="TDto">回傳給應用程式的 DTO 型別。</typeparam>
+    /// <typeparam name="TDto">回傳給應用層的 DTO 型別。</typeparam>
     /// <typeparam name="TFilterRequest">用於查詢的請求型別。</typeparam>
     public class GetService<TDataModel, TFilterDataModel, TDto, TFilterRequest> : IGetService<TDto, TFilterRequest>
         where TFilterDataModel : new()
@@ -21,8 +21,8 @@ namespace Saintber.Abstractions.Service
         /// <summary>
         /// 初始化查詢服務的新執行個體。
         /// </summary>
-        /// <param name="serviceContext">查詢服務內容。</param>
-        /// <param name="repository">查詢儲存庫。</param>
+        /// <param name="serviceContext">查詢服務的管理內容。</param>
+        /// <param name="repository">查詢資料的儲存庫。</param>
         public GetService(
             IGetServiceContext<TDataModel, TFilterDataModel, TDto, TFilterRequest> serviceContext,
             IGetRepository<TDataModel, TFilterDataModel> repository)
@@ -47,51 +47,26 @@ namespace Saintber.Abstractions.Service
             }
 
             // 前置處理（篩選條件轉換）
-            var filterDataModel = await serviceContext.BeforeQueryAsync(filterRequest, cancellationToken).ConfigureAwait(false);
+            var filterDataModel = await serviceContext.BeforeGetAsync(filterRequest, cancellationToken).ConfigureAwait(false);
 
             // 查詢資料
             var dataModels = await repository.GetAsync(filterDataModel, cancellationToken).ConfigureAwait(false);
 
             // 後置處理（轉換為 DTO）
-            var dtoList = await serviceContext.AfterQueryAsync(dataModels, cancellationToken).ConfigureAwait(false);
+            var dtoList = await serviceContext.AfterGetAsync(dataModels, cancellationToken).ConfigureAwait(false);
 
             return dtoList;
         }
 
         /// <summary>
-        /// 建立查詢服務的新執行個體。
+        /// 建立新的查詢服務實例。
         /// </summary>
-        /// <param name="serviceContext">查詢服務內容。</param>
-        /// <param name="repository">查詢儲存庫。</param>
+        /// <param name="serviceContext">查詢服務的管理內容。</param>
+        /// <param name="repository">查詢資料的儲存庫。</param>
         /// <returns>新的查詢服務實例。</returns>
         public static GetService<TDataModel, TFilterDataModel, TDto, TFilterRequest> Create(
             IGetServiceContext<TDataModel, TFilterDataModel, TDto, TFilterRequest> serviceContext,
             IGetRepository<TDataModel, TFilterDataModel> repository)
             => new GetService<TDataModel, TFilterDataModel, TDto, TFilterRequest>(serviceContext, repository);
-    }
-
-    /// <summary>
-    /// 提供查詢資訊所需的管理內容，並支援查詢前後的處理邏輯。
-    /// </summary>
-    /// <typeparam name="TDataModel">儲存層使用的數據模型型別。</typeparam>
-    /// <typeparam name="TFilterDataModel">儲存層使用的篩選條件數據模型型別。</typeparam>
-    /// <typeparam name="TDto">回傳給應用層的 DTO 型別。</typeparam>
-    /// <typeparam name="TFilterRequest">用於查詢的請求型別。</typeparam>
-    public interface IGetServiceContext<TDataModel, TFilterDataModel, TDto, TFilterRequest>
-    {
-        /// <summary>
-        /// 取得查詢請求的驗證器清單。
-        /// </summary>
-        IEnumerable<ValidationHandler<TFilterRequest>> GetValidators { get; }
-
-        /// <summary>
-        /// 在查詢前執行的處理程序，可用於轉換查詢請求或進行業務邏輯驗證。
-        /// </summary>
-        Task<TFilterDataModel> BeforeQueryAsync(TFilterRequest filterRequest, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// 在查詢後執行的處理程序，可用於轉換回應數據，例如觸發事件或更新快取。
-        /// </summary>
-        Task<IEnumerable<TDto>> AfterQueryAsync(IEnumerable<TDataModel> dataModels, CancellationToken cancellationToken = default);
     }
 }
