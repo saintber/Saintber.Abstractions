@@ -36,20 +36,19 @@ namespace Saintber.Abstractions.Service
     /// 定義更新資訊的服務，並回傳完整的應用層 DTO。
     /// </summary>
     /// <typeparam name="TDataModel">儲存層數據模型型別。</typeparam>
-    /// <typeparam name="TUpdateDataModel">異動資料模型型別。</typeparam>
-    /// <typeparam name="TDto">回傳給應用程式的 DTO 型別。</typeparam>
-    /// <typeparam name="TUpdateRequest">異動資訊型別。</typeparam>
+    /// <typeparam name="TUpdateDataModel">用於更新的儲存層數據模型。</typeparam>
+    /// <typeparam name="TDto">回傳給應用層的資料傳輸物件型別。</typeparam>
+    /// <typeparam name="TUpdateRequest">用於更新資訊的請求型別。</typeparam>
     public class UpdateService<TDataModel, TUpdateDataModel, TDto, TUpdateRequest> : IUpdateService<TDto, TUpdateRequest>
     {
         private readonly IUpdateServiceContext<TDataModel, TUpdateDataModel, TDto, TUpdateRequest> managerContext;
         private readonly IUpdateRepository<TDataModel, TUpdateDataModel> repository;
 
         /// <summary>
-        /// 更新資訊異動管理員的新執行個體。
+        /// 初始化更新服務的新執行個體。
         /// </summary>
-        /// <param name="managerContext">資訊異動管理員內容。</param>
-        /// <param name="repository">資料異動知識庫。</param>
-        /// <returns>資訊異動管理員。</returns>
+        /// <param name="managerContext">更新服務的服務內容。</param>
+        /// <param name="repository">更新資料的儲存庫。</param>
         public UpdateService(
             IUpdateServiceContext<TDataModel, TUpdateDataModel, TDto, TUpdateRequest> managerContext
             , IUpdateRepository<TDataModel, TUpdateDataModel> repository)
@@ -80,12 +79,12 @@ namespace Saintber.Abstractions.Service
         }
 
         /// <summary>
-        /// 更新資訊異動管理員的新執行個體。
+        /// 建立新的更新服務實例。
         /// </summary>
-        /// <param name="serviceContext">資訊異動管理員內容。</param>
-        /// <param name="repository">資料異動知識庫。</param>
-        /// <returns>資訊異動管理員。</returns>
-        public static UpdateService<TDataModel, TUpdateDataModel, TDto, TUpdateRequest> Update(
+        /// <param name="serviceContext">更新服務的服務內容。</param>
+        /// <param name="repository">更新服務儲存庫。</param>
+        /// <returns>新的更新服務實例。</returns>
+        public static UpdateService<TDataModel, TUpdateDataModel, TDto, TUpdateRequest> Create(
             IUpdateServiceContext<TDataModel, TUpdateDataModel, TDto, TUpdateRequest> serviceContext
             , IUpdateRepository<TDataModel, TUpdateDataModel> repository)
             => new UpdateService<TDataModel, TUpdateDataModel, TDto, TUpdateRequest>(serviceContext, repository);

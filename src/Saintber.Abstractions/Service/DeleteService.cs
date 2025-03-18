@@ -17,7 +17,7 @@ namespace Saintber.Abstractions.Service
         /// <summary>
         /// 初始化刪除資訊服務的新執行個體。
         /// </summary>
-        /// <param name="serviceContext">刪除資訊的管理內容。</param>
+        /// <param name="serviceContext">刪除資訊的服務內容。</param>
         /// <param name="repository">刪除資料的儲存庫。</param>
         public DeleteService(
             IDeleteServiceContext<TFilterDataModel, TDeleteRequest> serviceContext
@@ -49,7 +49,7 @@ namespace Saintber.Abstractions.Service
         /// <summary>
         /// 建立新的刪除資訊服務實例。
         /// </summary>
-        /// <param name="serviceContext">刪除資訊的管理內容。</param>
+        /// <param name="serviceContext">刪除資訊的服務內容。</param>
         /// <param name="repository">刪除資料的儲存庫。</param>
         /// <returns>新的刪除資訊服務實例。</returns>
         public static DeleteService<TFilterDataModel, TDeleteRequest> Create(

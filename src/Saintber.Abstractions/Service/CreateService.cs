@@ -78,7 +78,7 @@ namespace Saintber.Abstractions.Service
         /// <summary>
         /// 建立新的建立服務實例。
         /// </summary>
-        /// <param name="serviceContext">建立服務的管理內容。</param>
+        /// <param name="serviceContext">建立服務的服務內容。</param>
         /// <param name="repository">建立資料的儲存庫。</param>
         /// <returns>新的建立服務實例。</returns>
         public static CreateService<TDataModel, TCreateDataModel, TDto, TCreateRequest> Create(

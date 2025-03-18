@@ -21,7 +21,7 @@ namespace Saintber.Abstractions.Service
         /// <summary>
         /// 初始化查詢服務的新執行個體。
         /// </summary>
-        /// <param name="serviceContext">查詢服務的管理內容。</param>
+        /// <param name="serviceContext">查詢服務的服務內容。</param>
         /// <param name="repository">查詢資料的儲存庫。</param>
         public GetService(
             IGetServiceContext<TDataModel, TFilterDataModel, TDto, TFilterRequest> serviceContext,
@@ -61,7 +61,7 @@ namespace Saintber.Abstractions.Service
         /// <summary>
         /// 建立新的查詢服務實例。
         /// </summary>
-        /// <param name="serviceContext">查詢服務的管理內容。</param>
+        /// <param name="serviceContext">查詢服務的服務內容。</param>
         /// <param name="repository">查詢資料的儲存庫。</param>
         /// <returns>新的查詢服務實例。</returns>
         public static GetService<TDataModel, TFilterDataModel, TDto, TFilterRequest> Create(
