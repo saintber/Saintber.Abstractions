@@ -17,11 +17,11 @@ namespace Saintber.Abstractions.Service
         /// <summary>
         /// 在刪除前執行的處理程序，例如轉換刪除請求或進行業務邏輯驗證。
         /// </summary>
-        Func<TDeleteRequest, CancellationToken, Task<TFilterDataModel>> OnCreatingAsync { get; set; }
+        Func<TDeleteRequest, CancellationToken, Task<TFilterDataModel>> OnBeforeDeleteAsync { get; set; }
 
         /// <summary>
         /// 在刪除後執行的處理程序，例如觸發事件或更新快取。
         /// </summary>
-        Func<CancellationToken, Task> OnCreatedAsync { get; set; }
+        Func<CancellationToken, Task> OnAfterDeleteAsync { get; set; }
     }
 }

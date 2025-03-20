@@ -47,13 +47,13 @@ namespace Saintber.Abstractions.Service
             }
 
             // 前置處理（篩選條件轉換）
-            var filterDataModel = await serviceContext.OnCreatingAsync(filterRequest, cancellationToken).ConfigureAwait(false);
+            var filterDataModel = await serviceContext.OnBeforeGetAsync(filterRequest, cancellationToken).ConfigureAwait(false);
 
             // 查詢資料
             var dataModels = await repository.GetAsync(filterDataModel, cancellationToken).ConfigureAwait(false);
 
             // 後置處理（轉換為 DTO）
-            var dtoList = await serviceContext.OnCreatedAsync(dataModels, cancellationToken).ConfigureAwait(false);
+            var dtoList = await serviceContext.OnAfterGetAsync(dataModels, cancellationToken).ConfigureAwait(false);
 
             return dtoList;
         }

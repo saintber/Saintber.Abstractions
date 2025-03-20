@@ -37,13 +37,13 @@ namespace Saintber.Abstractions.Service
             }
 
             // 前置處理
-            var deleteDataModel = await serviceContext.OnCreatingAsync(delete, cancellationToken).ConfigureAwait(false);
+            var deleteDataModel = await serviceContext.OnBeforeDeleteAsync(delete, cancellationToken).ConfigureAwait(false);
 
             // 刪除資料
             await repository.DeleteAsync(deleteDataModel, cancellationToken).ConfigureAwait(false);
 
             // 後置處理
-            await serviceContext.OnCreatedAsync(cancellationToken).ConfigureAwait(false);
+            await serviceContext.OnAfterDeleteAsync(cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>

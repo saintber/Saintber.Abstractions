@@ -19,11 +19,11 @@ namespace Saintber.Abstractions.Service
         /// <summary>
         /// 在查詢前執行的處理程序，例如轉換查詢請求或進行業務邏輯驗證。
         /// </summary>
-        Func<TFilterRequest, CancellationToken, Task<TFilterDataModel>> OnCreatingAsync { get; set; }
+        Func<TFilterRequest, CancellationToken, Task<TFilterDataModel>> OnBeforeGetAsync { get; set; }
 
         /// <summary>
         /// 在查詢後執行的處理程序，例如轉換回應數據、觸發事件或更新快取。
         /// </summary>
-        Func<IEnumerable<TDataModel>, CancellationToken, Task<IEnumerable<TDto>>> OnCreatedAsync { get; set; }
+        Func<IEnumerable<TDataModel>, CancellationToken, Task<IEnumerable<TDto>>> OnAfterGetAsync { get; set; }
     }
 }

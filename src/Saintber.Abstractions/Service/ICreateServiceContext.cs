@@ -40,11 +40,11 @@ namespace Saintber.Abstractions.Service
         /// <summary>
         /// 在建立前執行的處理程序，例如轉換查詢請求或進行業務邏輯驗證。
         /// </summary>
-        Func<TCreateRequest, CancellationToken, Task<TCreateDataModel>> OnCreatingAsync { get; set; }
+        Func<TCreateRequest, CancellationToken, Task<TCreateDataModel>> OnBeforeCreateAsync { get; set; }
 
         /// <summary>
         /// 在建立後執行的處理程序，例如轉換回應數據、觸發事件或更新快取。
         /// </summary>
-        Func<TDataModel, CancellationToken, Task<TDto>> OnCreatedAsync { get; set; }
+        Func<TDataModel, CancellationToken, Task<TDto>> OnAfterCreateAsync { get; set; }
     }
 }
