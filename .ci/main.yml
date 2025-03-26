@@ -68,6 +68,9 @@ steps:
 - script: |
     echo "Updating nuspec files with version $(PACKAGE_VERSION)..."
     find . -type f -name "*.nuspec" -exec sed -i "s|<version>.*</version>|<version>$(PACKAGE_VERSION)</version>|g" {} +
+    find . -type f -name "*.nuspec" -exec sed -i "s|version=\"PackageVersion\"|version=\"$(PACKAGE_VERSION)\"|g" {} +
+    echo "Nuspec files updated successfully."
+
   displayName: "Update nuspec version"
 
 # 還原套件
