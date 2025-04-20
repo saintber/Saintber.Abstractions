@@ -11,7 +11,7 @@ namespace Saintber.Abstractions.Service
     /// <typeparam name="TFilterRequest">用於查詢的請求型別。</typeparam>
     public interface IGetServiceContext<TDataModel, TFilterDataModel, TDto, TFilterRequest>
     {
-        // <summary>
+        /// <summary>
         /// 取得查詢請求的驗證器清單。
         /// </summary>
         IEnumerable<ValidationHandler<TFilterRequest>> GetValidators { get; }

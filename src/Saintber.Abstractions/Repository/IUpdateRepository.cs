@@ -9,7 +9,7 @@
     /// <summary>
     /// 定義更新資料的儲存庫介面，負責將更新請求存入儲存層，並返回更新結果。
     /// </summary>
-    /// <typeparam name="TUpdateResult">更新後回傳的結果型別，可為識別碼、更新戳記或完整數據模型。</typeparam>
+    /// <typeparam name="TDataResult">更新後回傳的結果型別，可為識別碼、更新戳記或完整數據模型。</typeparam>
     /// <typeparam name="TUpdateDataModel">用於更新的儲存層數據模型型別。</typeparam>
     public interface IUpdateRepository<TDataResult, TUpdateDataModel>
     {

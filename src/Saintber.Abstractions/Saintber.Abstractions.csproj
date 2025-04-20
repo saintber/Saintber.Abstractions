@@ -29,11 +29,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="README.md" Pack="true" Package="" />
+    <None Include="README.md" Pack="true" PackagePath="">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Saintber.Validation" Version="1.0.0-rc01-alpha01" />
   </ItemGroup>
-
 </Project>

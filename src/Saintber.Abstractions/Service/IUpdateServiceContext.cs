@@ -26,8 +26,10 @@ namespace Saintber.Abstractions.Service
     /// <summary>
     /// 異動管理員內容介面。
     /// </summary>
+    /// <typeparam name="TDataModel">更新後回傳的資料模型。</typeparam>
     /// <typeparam name="TUpdateDataModel">異動資料模型。</typeparam>
     /// <typeparam name="TUpdateRequest">異動資訊。</typeparam>
+    /// <typeparam name="TDto">更新後回傳的資訊。</typeparam>
     public interface IUpdateServiceContext<TDataModel, TUpdateDataModel, TDto, TUpdateRequest>
     {
         /// <summary>

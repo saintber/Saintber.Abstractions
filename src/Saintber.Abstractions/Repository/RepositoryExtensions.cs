@@ -19,7 +19,7 @@
         /// 取得符合篩選條件的單筆資料。
         /// </summary>
         /// <typeparam name="TModel">資料模型型別。</typeparam>
-        /// <typeparam name="TFilter">篩選資料模型型別。</typeparam>
+        /// <typeparam name="TFilterModel">篩選資料模型型別。</typeparam>
         /// <param name="repository">知識庫。</param>
         /// <param name="filter">篩選資料模型。</param>
         /// <param name="cancellationToken">取消權杖。</param>

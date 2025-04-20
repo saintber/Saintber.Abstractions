@@ -6,7 +6,7 @@
     /// <typeparam name="TCreateDataModel">用於建立的儲存層數據模型型別。</typeparam>
     public interface ICreateRepository<TCreateDataModel> : ICreateRepository<string, TCreateDataModel> { }
 
-    // <summary>
+    /// <summary>
     /// 定義建立資料的儲存庫介面，負責將建立請求存入儲存層並返回結果。
     /// </summary>
     /// <typeparam name="TDataResult">建立後回傳的結果型別，可為識別碼或完整的數據模型。</typeparam>
