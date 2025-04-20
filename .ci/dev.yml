@@ -51,34 +51,19 @@ steps:
   displayName: "Install .NET Versions"
   inputs:
     version: '9.x'
-
-# 設定 NuGet.exe 6.x 版本
-- task: NuGetToolInstaller@1
-  inputs:
-    versionSpec: '6.x'
-
+    
 # 設定套件來源
 - script: |
-    nuget sources Add -Name "nuget.org" -Source "https://api.nuget.org/v3/index.json" -ConfigFile nuget.config
+    dotnet nuget add source "https://api.nuget.org/v3/index.json" --name "nuget.org" --configfile nuget.config
     if [ -n "$(PrivateSource)" ]; then
       echo "Adding Private NuGet source: $(PrivateSource)"
-      nuget sources Add -Name "Private" -Source "$(PrivateSource)" -ConfigFile nuget.config
+      dotnet nuget add source "$(PrivateSource)" --name "Private" --username "AzureDevOps" --password "$(System.AccessToken)" --store-password-in-clear-text --configfile nuget.config
     fi
   displayName: 'Configure NuGet Sources'
-
-# 設定 nuspec
-- script: |
-    echo "Updating nuspec files with version $(PACKAGE_VERSION)..."
-    find . -type f -name "*.nuspec" -exec sed -i "s|<version>.*</version>|<version>$(PACKAGE_VERSION)</version>|g" {} +
-    find . -type f -name "*.nuspec" -exec sed -i "s|version=\"PackageVersion\"|version=\"$(PACKAGE_VERSION)\"|g" {} +
-    echo "Nuspec files updated successfully."
-
-  displayName: "Update nuspec version"
-
+  env:
+    NUGET_CREDENTIALPROVIDERS_PLUGIN_HANDLING: ignore
+    
 # 還原套件
-- task: NuGetAuthenticate@1
-  displayName: Authenticate to Azure Artifacts
-
 - task: DotNetCoreCLI@2
   displayName: 'Restore NuGet Packages'
   inputs:
@@ -93,13 +78,17 @@ steps:
   inputs:
     projects: '$(BuildProjects)'
     arguments: '--configuration $(BuildConfiguration)'
-
+    
 # 建置套件
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
+  displayName: 'Pack NuGet Packages'
   inputs:
     command: 'pack'
-    packagesToPack: 'src/*/*.nuspec'
+    packagesToPack: '$(BuildProjects)'
+    configuration: '$(BuildConfiguration)'
     outputDir: '$(Build.ArtifactStagingDirectory)'
+    versioningScheme: byEnvVar
+    versionEnvVar: PACKAGE_VERSION
 
 # 推送至 GitHub
 # - script: |
@@ -111,21 +100,31 @@ steps:
     # echo "Pushing to $(PushBranch) branch..."
     # git push -u origin $(PushBranch)
   # displayName: "Push to GitHub $(PushBranch) branch"
+  
+# 推送套件到 Azure Artifacts（內部 Feed）
+- script: |
+    echo "🔁 正在推送套件到 Azure Artifacts Feed..."
+    for pkg in $(Build.ArtifactStagingDirectory)/*.nupkg; do
+      echo "📦 推送套件: $pkg"
+      dotnet nuget push "$pkg" \
+        --api-key $(System.AccessToken) \
+        --source "$(PrivateSource)" \
+        --skip-duplicate
+    done
+  displayName: 'Push NuGet Packages to Azure Artifacts'
+  condition: and(succeeded(), ne(variables['PrivateSource'], ''))
+  env:
+    NUGET_CREDENTIALPROVIDERS_PLUGIN_HANDLING: ignore
 
-# 推送套件
-- task: NuGetCommand@2
-  displayName: 'Push to Azure Artifact'
-  condition: and(succeeded(), ne(variables['PrivateFeed'], ''))
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-    nuGetFeedType: 'internal'
-    publishVstsFeed: $(PrivateFeed)
-
-- task: NuGetCommand@2
-  displayName: 'Push to Nuget.Org'
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: $(NugetOrgServiceConnectionToken)
+# 推送套件到 nuget.org（外部 Feed）
+- script: |
+    echo "🔁 正在推送套件到 NuGet.org..."
+    for pkg in $(Build.ArtifactStagingDirectory)/*.nupkg; do
+      echo "📦 推送套件: $pkg"
+      dotnet nuget push "$pkg" \
+        --api-key $(NugetOrgApiKey) \
+        --source "https://api.nuget.org/v3/index.json" \
+        --skip-duplicate
+    done
+  displayName: 'Push NuGet Packages to NuGet.org'
+  condition: and(succeeded(), ne(variables['NugetOrgApiKey'], ''))

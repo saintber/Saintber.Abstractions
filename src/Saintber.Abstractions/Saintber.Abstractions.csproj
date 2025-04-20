@@ -4,7 +4,33 @@
     <TargetFrameworks>net9.0;net8.0;net6.0;</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <!-- 套件設定 -->
+    <IsPackable>true</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
+    
+    <!-- NuGet Metadata -->
+    <Version>$(PackageVersion)</Version>
+    <PackageId>Saintber.Abstractions</PackageId>
+    <Authors>Saintber</Authors>
+    <Owners>Saintber</Owners>
+    <Description>提供 Saintber 套件通用的介面與抽象基底 - Shared interfaces and abstract base classes for Saintber packages.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/saintber/Saintber.Abstractions.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    
+    <!-- 包含原始碼與符號 -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" Package="" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Saintber.Validation" Version="1.0.0-rc01-alpha01" />

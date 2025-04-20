@@ -12,6 +12,7 @@ variables:
   BuildConfiguration: 'Release'
   BuildProjects: '**/*.csproj'
   TestProjects: '**/*[Uu]nit[Tt]ests/*.csproj'
+  PackageVersion: '0.0.0-pr.$(Build.BuildId)'
 
 steps:
 - checkout: self
@@ -31,25 +32,19 @@ steps:
   displayName: "Install .NET Versions"
   inputs:
     version: '9.x'
-
-# 設定 NuGet.exe 6.x 版本
-- task: NuGetToolInstaller@1
-  inputs:
-    versionSpec: '6.x'
-
+    
 # 設定套件來源
 - script: |
-    nuget sources Add -Name "nuget.org" -Source "https://api.nuget.org/v3/index.json" -ConfigFile nuget.config
+    dotnet nuget add source "https://api.nuget.org/v3/index.json" --name "nuget.org" --configfile nuget.config
     if [ -n "$(PrivateSource)" ]; then
       echo "Adding Private NuGet source: $(PrivateSource)"
-      nuget sources Add -Name "Private" -Source "$(PrivateSource)" -ConfigFile nuget.config
+      dotnet nuget add source "$(PrivateSource)" --name "Private" --username "AzureDevOps" --password "$(System.AccessToken)" --store-password-in-clear-text --configfile nuget.config
     fi
   displayName: 'Configure NuGet Sources'
-
+  env:
+    NUGET_CREDENTIALPROVIDERS_PLUGIN_HANDLING: ignore
+    
 # 還原套件
-- task: NuGetAuthenticate@1
-  displayName: Authenticate to Azure Artifacts
-
 - task: DotNetCoreCLI@2
   displayName: 'Restore NuGet Packages'
   inputs:
@@ -64,6 +59,17 @@ steps:
   inputs:
     projects: '$(BuildProjects)'
     arguments: '--configuration $(BuildConfiguration)'
+    
+# 建置套件
+- task: DotNetCoreCLI@2
+  displayName: 'Pack NuGet Packages'
+  inputs:
+    command: 'pack'
+    packagesToPack: '$(BuildProjects)'
+    configuration: '$(BuildConfiguration)'
+    outputDir: '$(Build.ArtifactStagingDirectory)'
+    versioningScheme: byEnvVar
+    versionEnvVar: PACKAGE_VERSION
 
 # 單元測試
 - task: DotNetCoreCLI@2
