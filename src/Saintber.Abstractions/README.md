@@ -1,7 +1,8 @@
-﻿> English | [中文說明](#中文說明)
-
-![.NET](https://img.shields.io/badge/.NET-6%2F8%2F9-blue)
+﻿![.NET](https://img.shields.io/badge/.NET-6%2F8%2F9-blue)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![NuGet](https://img.shields.io/nuget/v/Saintber.Abstractions.svg)
+
+> English | [中文說明](#中文說明)
 
 ---
 
