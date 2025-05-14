@@ -15,7 +15,7 @@
     <PackageId>Saintber.Abstractions</PackageId>
     <Authors>Saintber</Authors>
     <Owners>Saintber</Owners>
-    <Description>提供 Saintber 套件通用的介面與抽象基底 - Shared interfaces and abstract base classes for Saintber packages.</Description>
+    <Description>提供 EntityFramework 的擴充基底類別與開發工具 - Provide essential base classes and development tools for Entity Framework repository development.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReadmeFile>README.md</PackageReadmeFile>

@@ -10,7 +10,7 @@
 
 ### Overview
 
-**Saintber.Abstractions** provides common interfaces, abstract base classes, and extension utilities for building modular systems. It targets shared functionality across **services**, **repositories**, **identity**, and **data transformation** in Saintber's ecosystem.
+**Saintber.Abstractions** provides common interfaces, abstract base classes, and extension utilities for building modular systems. It targets shared functionality across **services**, **repositories**, **identity**, **Data Scope**, and **data transformation** in Saintber's ecosystem.
 
 ### Features
 
@@ -42,6 +42,7 @@ https://github.com/saintber/Saintber.Abstractions
 - 服務 (Service) 抽象層
 - 知識庫 (Repository) 抽象層
 - 使用者身分識別介面
+- 資料範圍控制介面
 - 資料轉換與擴充輔助方法
 
 適合用於建立模組化架構、降低耶合、提升可測試性。
