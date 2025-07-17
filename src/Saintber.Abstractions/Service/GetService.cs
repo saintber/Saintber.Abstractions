@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using Saintber.Abstractions.Repository;
-using Saintber.Validation;
+using Saintber.Abstractions.Validation;
 
 namespace Saintber.Abstractions.Service
 {
